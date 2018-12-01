@@ -1,4 +1,4 @@
-class Auth {
+class AuthController {
     constructor(authService, userService) {
         this.authService = authService;
         this.userService = userService;
@@ -13,7 +13,7 @@ class Auth {
             user = await this.userService.create(email, password);
         }
 
-        if (this.authService.isPasswordValid(password, user.password)) {
+        if (await this.authService.isPasswordValid(password, user.password)) {
             const token = this.authService.createToken(user);
             res.send({token});
         } else {
@@ -22,4 +22,4 @@ class Auth {
     }
 }
 
-module.exports = Auth;
+module.exports = AuthController;

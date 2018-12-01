@@ -1,3 +1,7 @@
 {
-    "secret": "ihsadf#$%TRDFGASF@EW14353478fds8hig$#@$d4aREFG#$df!@&*_"
+    "secret": "ihsadf#$%TRDFGASF@EW14353478fds8hig$#@$d4aREFG#$df!@&*_",
+    "db": {
+        "host": "localhost",
+        "name": "test"
+    }
 }

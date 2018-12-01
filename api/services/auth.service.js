@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const config = require('../config.json');
 
 class AuthService {
-    createToken() {
-        return 'token';
+    createToken(user) {
+        return jwt.sign({id: user.id, email: user.email}, config.secret);
     }
 
     async isPasswordValid(password, hash) {

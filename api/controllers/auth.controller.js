@@ -2,6 +2,7 @@ class Auth {
     constructor(authService, userService) {
         this.authService = authService;
         this.userService = userService;
+        this.create = this.create.bind(this);
     }
 
     async create(req, res) {
@@ -13,7 +14,7 @@ class Auth {
         }
 
         if (this.authService.isPasswordValid(password, user.password)) {
-            const token = this.authService.createToken();
+            const token = this.authService.createToken(user);
             res.send({token});
         } else {
             res.send({error: 'Incorrect password'});

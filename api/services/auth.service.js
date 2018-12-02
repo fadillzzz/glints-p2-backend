@@ -3,8 +3,8 @@ const jwt = require('jsonwebtoken');
 const config = require('../config.json');
 
 class AuthService {
-    createToken(user) {
-        return jwt.sign({id: user.id, email: user.email}, config.secret, {expiresIn: '1 days'});
+    async createToken(user) {
+        return await jwt.sign({id: user.id, email: user.email}, config.secret, {expiresIn: '1 days'});
     }
 
     async isPasswordValid(password, hash) {

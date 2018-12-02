@@ -14,7 +14,7 @@ class AuthController {
         }
 
         if (await this.authService.isPasswordValid(password, user.password)) {
-            const token = this.authService.createToken(user);
+            const token = await this.authService.createToken(user);
             res.send({token});
         } else {
             res.send({error: 'Incorrect password'});

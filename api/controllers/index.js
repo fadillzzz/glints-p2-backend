@@ -12,5 +12,7 @@ module.exports = {
     CollectionsRestaurantsController: new CollectionsRestaurantsController(
         CollectionService, RestaurantService, SocketService
     ),
-    CollectionsUsersController: new CollectionsUsersController(CollectionService, UserService)
+    CollectionsUsersController: new CollectionsUsersController(
+        CollectionService, UserService, SocketService
+    )
 };

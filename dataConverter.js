@@ -6,13 +6,14 @@ const config = require('./api/config.json');
 const Restaurant = require('./api/models/restaurant.model');
 
 const availableDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+let processed = 0;
 
 /**
  * Parse each line from the backup CSV and save the data into the DB
  *
  * @param {String} restaurant
  */
-function convert(restaurant) {
+async function convert(restaurant) {
     const name = restaurant[0];
     const availability = restaurant[1].split('/');
 
@@ -83,7 +84,8 @@ function convert(restaurant) {
         });
     });
 
-    Restaurant.create(restaurantData);
+    await Restaurant.create(restaurantData);
+    processed++;
 }
 
 mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`);
@@ -91,15 +93,24 @@ mongoose.connection.on('error', err => {
     console.log(`MongoDB connection error: ${err}`);
     process.exit(-1);
 });
+
+let i = 0;
 mongoose.connection.on('connected', () => {
     const stream = fs.createReadStream('./data.csv');
 
     const csvStream = csv().on('data', data => {
         convert(data);
-    }).on('end', () => {
-        console.log('All done');
-        process.exit(0);
+        i++;
     });
 
     stream.pipe(csvStream);
 });
+
+setTimeout(function x() {
+    if (processed !== i) {
+        setTimeout(x, 1000);
+    } else {
+        console.log('All done');
+        process.exit(0);
+    }
+}, 1000);

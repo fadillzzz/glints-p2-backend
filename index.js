@@ -19,7 +19,7 @@ app.use(cors());
 app.post('/auth', AuthController.create);
 
 app.use(jwt({secret: config.secret}));
-app.get('/restaurants', RestaurantsController.test);
+app.get('/restaurants', RestaurantsController.search);
 
 app.listen(9000, () => console.log('Server started'));
 

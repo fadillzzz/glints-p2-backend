@@ -6,5 +6,5 @@ const CollectionsController = require('./collections.controller');
 module.exports = {
     AuthController: new AuthController(AuthService, UserService),
     RestaurantsController: new RestaurantsController(RestaurantService),
-    CollectionsController: new CollectionsController(CollectionService, RestaurantService)
+    CollectionsController: new CollectionsController(CollectionService, RestaurantService, UserService)
 };

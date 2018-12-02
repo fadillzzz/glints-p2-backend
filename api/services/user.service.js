@@ -12,8 +12,8 @@ class UserService {
         return user;
     }
 
-    async exists(id) {
-        return await User.countDocuments({_id: id}) > 0;
+    async existsByEmail(email) {
+        return await User.countDocuments({email}) > 0;
     }
 
     async create(email, password) {

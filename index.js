@@ -26,6 +26,7 @@ app.get('/collections/:id', CollectionsController.show);
 app.put('/collections/:id', CollectionsController.edit);
 app.put('/collections/:id/restaurants/:restaurant', CollectionsController.addRestaurant);
 app.delete('/collections/:id/restaurants/:restaurant', CollectionsController.removeRestaurant);
+app.patch('/collections/:id/users', CollectionsController.addUser);
 
 app.listen(9000, () => console.log('Server started'));
 

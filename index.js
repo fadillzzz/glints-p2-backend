@@ -9,7 +9,7 @@ const {AuthController, RestaurantsController} = require('./api/controllers');
 
 mongoose.connect(`mongodb://${config.db.host}/${config.db.name}`);
 mongoose.connection.on('error', err => {
-    console.log('MongoDB connection error: ' + err);
+    console.log(`MongoDB connection error: ${err}`);
     process.exit(-1);
 });
 

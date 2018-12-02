@@ -1,6 +1,7 @@
 class CollectionsController {
-    constructor(collectionService, userService) {
+    constructor(collectionService, socketService) {
         this.collectionService = collectionService;
+        this.socketService = socketService;
         this.create = this.create.bind(this);
         this.get = this.get.bind(this);
         this.show = this.show.bind(this);
@@ -31,6 +32,10 @@ class CollectionsController {
     async edit(req, res) {
         if (await this.collectionService.belongsTo(req.params.id, req.user.id)) {
             const collection = await this.collectionService.update(req.params.id, {name: req.body.name});
+
+            this.socketService.broadcastToRooms(
+                collection.users, 'edit-collection', {id: req.params.id, name: req.body.name}
+            );
 
             return res.send({success: true});
         }

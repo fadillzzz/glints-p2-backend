@@ -6,7 +6,7 @@ class RestaurantService {
      * Returns all restaurants that satisfy the dateTime constraint
      *
      * @param {String|null} dateTime Should be in the form of "Day H:mm AM/PM"
-     * @return {Object[]}
+     * @return {Promise<mongoose.Model[]>}
      */
     async findAll(dateTime = null) {
         const constraint = {};
@@ -23,6 +23,12 @@ class RestaurantService {
         return await Restaurant.find(constraint);
     }
 
+    /**
+     * Find a restaurant by its ID
+     *
+     * @param {String} id
+     * @return {Promise<mongoose.Model>}
+     */
     async find(id) {
         return await Restaurant.findById(id);
     }

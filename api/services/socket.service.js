@@ -1,8 +1,15 @@
 class SocketService {
+    /**
+     * @param {AuthService} authService
+     */
     constructor(authService) {
         this.authService = authService;
     }
 
+    /**
+     * @param {Object} io An isntance of socket.io
+     * @return {this}
+     */
     setIo(io) {
         this.io = io;
         return this;
@@ -22,6 +29,13 @@ class SocketService {
         });
     }
 
+    /**
+     * Broadcast an event with some data to the specified rooms
+     *
+     * @param {String[]} roomIds
+     * @param {String} event
+     * @param {mixed} data
+     */
     broadcastToRooms(roomIds, event, data) {
         roomIds.forEach(id => {
             this.io.to(id).emit(event, data);

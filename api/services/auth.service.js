@@ -14,6 +14,15 @@ class AuthService {
     async generateHash(password) {
         return await bcrypt.hash(password, 10);
     }
+
+    async getUserIdFromToken(token) {
+        try {
+            const decoded = await jwt.verify(token, config.secret);
+            return decoded.id;
+        } catch (e) {
+            return '';
+        }
+    }
 }
 
 module.exports = AuthService;

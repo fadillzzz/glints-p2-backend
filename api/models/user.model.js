@@ -6,6 +6,13 @@ const userSchema = new Schema({
     password: {type: String, required: true}
 });
 
+userSchema.set('toJSON', {
+    transform: (_, ret) => {
+        delete ret.password;
+        return ret;
+    }
+});
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
